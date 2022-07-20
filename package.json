@@ -1,0 +1,23 @@
+{
+  "name": "windowtemp",
+  "version": "1.0.0",
+  "description": "Service to tell a user when to open and close their windows.",
+  "main": "index.js",
+  "scripts": {
+    "compile": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joeweller/WindowTemp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joeweller/WindowTemp/issues"
+  },
+  "homepage": "https://github.com/joeweller/WindowTemp#readme",
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  }
+}
