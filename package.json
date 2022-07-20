@@ -19,5 +19,8 @@
   "homepage": "https://github.com/joeweller/WindowTemp#readme",
   "devDependencies": {
     "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "@types/node": "^18.0.6"
   }
 }
