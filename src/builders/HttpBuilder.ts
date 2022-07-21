@@ -63,7 +63,7 @@ export default class {
   }
 
   /** send request */
-  async send(): Promise<HttpsResponse> {
+  async send(): Promise<any> {
     return new Promise((resolve, reject): HttpsResponse | any => {
       if (!this.#url) reject("url must be provided");
 
@@ -82,33 +82,35 @@ export default class {
             reject(err);
           });
           res.on("end", () => {
-            resolve(
-              new Response(
-                res.statusCode,
-                res.statusMessage,
-                res.headers,
-                Buffer.concat(chunks)
-              )
-            );
+            if (res) {
+              resolve(
+                new Response(
+                  res.statusCode || 0,
+                  res.statusMessage || "",
+                  res.headers,
+                  Buffer.concat(chunks)
+                )
+              );
+            }
           });
         }
       );
-      req.write(this.#body);
+      if (this.#body && this.#body.byteLength > 0) req.write(this.#body);
       req.end();
     });
   }
 }
 
 class Response implements HttpsResponse {
-  statusCode: number | undefined;
-  status: string | undefined;
-  headers: NodeJS.Dict<string | string[]> | undefined;
+  statusCode: number;
+  status: string;
+  headers: NodeJS.Dict<string | string[]>;
   body: Buffer;
 
   constructor(
-    statusCode: number | undefined,
-    status: string | undefined,
-    headers: NodeJS.Dict<string | string[]> | undefined,
+    statusCode: number,
+    status: string,
+    headers: NodeJS.Dict<string | string[]>,
     body: Buffer
   ) {
     this.statusCode = statusCode;
@@ -117,7 +119,7 @@ class Response implements HttpsResponse {
     this.body = body;
   }
 
-  bodyAsString(): string {
+  getBodyAsString(): string {
     return this.body.toString();
   }
 }

@@ -1,7 +1,7 @@
 interface HttpsResponse {
-  statusCode: number | undefined;
-  status: string | undefined;
-  headers: NodeJS.Dict<string | string[]> | undefined;
+  statusCode: number;
+  status: string;
+  headers: NodeJS.Dict<string | string[]>;
   body: Buffer;
-  bodyAsString(): string;
+  getBodyAsString(): string;
 }
