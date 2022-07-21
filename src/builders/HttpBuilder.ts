@@ -1,73 +1,77 @@
 import * as https from "https";
-import { OutgoingHttpHeaders } from "http";
 import { URL } from "url";
 
 export default class {
-  method: string;
-  body: Buffer | null;
-  headers: Record<string, string>;
-  url: URL | string;
+  #method: string;
+  #body: Buffer | null;
+  #headers: Record<string, string>;
+  #url: URL | string;
 
   constructor() {
-    this.method = "GET";
-    this.body = null;
-    this.headers = {};
-    this.url = "";
+    this.#method = "GET";
+    this.#body = null;
+    this.#headers = {};
+    this.#url = "";
   }
 
   /** Http Methods */
   get(): this {
-    this.method = "GET";
+    this.#method = "GET";
     return this;
   }
 
   post(): this {
-    this.method = "POST";
+    this.#method = "POST";
     return this;
   }
 
   /** Set body */
-  setStringAsBody(body: string): this {
-    this.body = Buffer.from(body);
+  setBodyAsString(body: string): this {
+    this.#body = Buffer.from(body);
     return this;
   }
 
-  setBufferAsBody(body: Buffer): this {
-    this.body = body;
+  setBody(body: Buffer): this {
+    this.#body = body;
     return this;
   }
 
   /** set header */
   setHeaders(headers: Record<string, string>): this {
-    this.headers = headers;
+    this.#headers = headers;
     return this;
   }
 
   setHeader(key: string, value: string): this {
-    this.headers[key] = value;
+    this.#headers[key] = value;
     return this;
   }
 
-  setObjectAsUrl(url: URL): this {
-    this.url = url;
+  setAuthorizationToken(token: string): this {
+    this.setHeader("Authorization", `Bearer: ${token}`);
+    return this;
+  }
+
+  setUrl(url: URL): this {
+    this.#url = url;
     return this;
   }
 
   setStringAsUrl(url: string): this {
-    this.url = url;
+    this.#url = url;
     return this;
   }
 
   /** send request */
-  async send(): Promise<HttpsResponse | string> {
+  async send(): Promise<HttpsResponse> {
     return new Promise((resolve, reject): HttpsResponse | any => {
-      if (!this.url) reject("url must be provided");
+      if (!this.#url) reject("url must be provided");
 
       const req = https.request(
-        this.url,
+        this.#url,
         {
-          headers: this.headers,
-          method: this.method,
+          headers: this.#headers,
+          method: this.#method,
         },
         (res) => {
           const chunks: Uint8Array[] = [];
@@ -89,6 +93,7 @@ export default class {
           });
         }
       );
+      req.write(this.#body);
       req.end();
     });
   }
