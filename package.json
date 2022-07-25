@@ -4,6 +4,8 @@
   "description": "Service to tell a user when to open and close their windows.",
   "main": "index.js",
   "scripts": {
+    "compile:authorize": "npm run compile && npm run authorize",
+    "authorize": "node ./bin/authorize.js",
     "compile:start": "npm run compile && npm run start",
     "start": "node ./bin/index.js",
     "compile": "tsc",

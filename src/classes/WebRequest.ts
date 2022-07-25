@@ -52,6 +52,11 @@ export default class {
     return this;
   }
 
+  setContentType(value: string) {
+    this.setHeader("Content-Type", value);
+    return this;
+  }
+
   setUrl(url: URL): this {
     this.#url = url;
     return this;
@@ -64,7 +69,7 @@ export default class {
 
   /** send request */
   async send(): Promise<any> {
-    return new Promise((resolve, reject): HttpsResponse | any => {
+    return new Promise((resolve, reject): WebResponse | any => {
       if (!this.#url) reject("url must be provided");
 
       const req = https.request(
@@ -101,7 +106,7 @@ export default class {
   }
 }
 
-class Response implements HttpsResponse {
+class Response implements WebResponse {
   statusCode: number;
   status: string;
   headers: NodeJS.Dict<string | string[]>;
@@ -121,5 +126,9 @@ class Response implements HttpsResponse {
 
   getBodyAsString(): string {
     return this.body.toString();
+  }
+
+  getJson<T>(): T {
+    return JSON.parse(this.getBodyAsString());
   }
 }
