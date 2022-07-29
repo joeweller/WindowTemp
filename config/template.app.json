@@ -1,2 +1,12 @@
 {
+  "googleNest": {
+    "projectId": "",
+    "oauth2ClientId": "",
+    "clientSecret": "",
+    "key": ""
+  },
+  "pushover": {
+    "appToken": "",
+    "targetKey": ""
+  }
 }
