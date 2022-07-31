@@ -1,4 +1,4 @@
-import WebRequest from "../classes/WebRequest";
+import { Request } from "../classes/Web";
 
 export default class {
   #key: string;
@@ -14,7 +14,7 @@ export default class {
     const url: string = `https://api.openweathermap.org/data/2.5/weather?lat=${
       this.#lat
     }&lon=${this.#lon}&appid=${this.#key}`;
-    const req: WebRequest = new WebRequest();
+    const req: Request = new Request();
     req.get().setStringAsUrl(url);
     return req.send();
   }

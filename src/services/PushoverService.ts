@@ -1,5 +1,5 @@
 import PushoverMessage from "../classes/PushoverMessage";
-import WebRequest from "../classes/WebRequest";
+import { Request } from "../classes/Web";
 export default class {
   #appToken: string;
   #targetKey: string;
@@ -16,7 +16,7 @@ export default class {
     const messageString = JSON.stringify(message);
     console.log(messageString);
 
-    const req: WebRequest = new WebRequest();
+    const req: Request = new Request();
     req
       .post()
       .setContentType("application/json")

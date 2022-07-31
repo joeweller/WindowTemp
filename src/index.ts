@@ -1,7 +1,7 @@
 import { join } from "path";
 import { parseJsonFile } from "./classes/helpers";
 import PushoverMessage from "./classes/PushoverMessage";
-import WebRequest from "./classes/WebRequest";
+import { Request } from "./classes/Web";
 import PushoverService from "./services/PushoverService";
 
 const configLocation = join(__dirname, "../config/app.json");
