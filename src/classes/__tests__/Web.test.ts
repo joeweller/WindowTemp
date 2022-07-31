@@ -1,8 +1,8 @@
-import WebRequest from "../WebRequest";
+import { Request, Response } from "../Web";
 
 describe("WebRequest", () => {
   it("constructs", () => {
-    const i = new WebRequest();
+    const i = new Request();
     expect(i).not.toBeNull();
   });
 });

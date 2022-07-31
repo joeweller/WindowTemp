@@ -1,7 +1,7 @@
 import * as https from "https";
 import { URL } from "url";
 
-export default class {
+export class Request {
   #method: string;
   #body: Buffer | null;
   #headers: Record<string, string>;
@@ -106,7 +106,7 @@ export default class {
   }
 }
 
-class Response implements WebResponse {
+export class Response implements WebResponse {
   statusCode: number;
   status: string;
   headers: NodeJS.Dict<string | string[]>;
